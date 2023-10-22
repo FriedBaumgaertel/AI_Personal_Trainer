@@ -1,6 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+  
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+	  apiKey: "AIzaSyA00xSz8jSMJ9VfFkYoJKq-6REXrYxNkMY",
+	  authDomain: "calorie-calculator-64892.firebaseapp.com",
+	  projectId: "calorie-calculator-64892",
+	  storageBucket: "calorie-calculator-64892.appspot.com",
+	  messagingSenderId: "223574602826",
+	  appId: "1:223574602826:web:c2f9e549b9a82d5721a2b3",
+	  measurementId: "G-T3C7QMJR29"
+	};
+  
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+  </script>
+<html lang="en" class="bg-[#030303] font-mont">
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
