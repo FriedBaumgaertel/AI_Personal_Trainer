@@ -1,16 +1,47 @@
-import { c as create_ssr_component, e as escape, f as add_attribute } from "../../chunks/ssr.js";
+import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../chunks/ssr.js";
+import { w as writable } from "../../chunks/index.js";
 import "chart.js/auto";
+const digits = writable([]);
+const step = writable(1);
+const totalCalories = writable(0);
+const activeCalories = writable(0);
+const bmr = writable(0);
+const carbs = writable(0);
+const proteins = writable(0);
+const fats = writable(0);
+const FirstStep = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  totalCalories.subscribe((value) => {
+  });
+  activeCalories.subscribe((value) => {
+  });
+  bmr.subscribe((value) => {
+  });
+  return `${``}`;
+});
+const GoalSection = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let currentCarbs;
+  let currentFats;
+  let currentProteins;
+  digits.subscribe((value) => {
+  });
+  carbs.subscribe((value) => {
+    currentCarbs = value;
+  });
+  fats.subscribe((value) => {
+    currentFats = value;
+  });
+  proteins.subscribe((value) => {
+    currentProteins = value;
+  });
+  let donutChart;
+  return `<div class="flex flex-row w-full p-6 gap-2 items-center">${``} ${``} ${``}</div>  ${currentCarbs !== 0 ? `<div class="flex flex-row justify-between items-center p-4 gap-4 mt-4"><canvas class="basis-1/3 w-1/3" id="donutChart"${add_attribute("this", donutChart, 0)}></canvas> <div class="flex flex-row basis-2/3 text-left text-white gap-4 justify-between"><div class="flex flex-col basis-2/3 text-left text-white gap-4 justify-between"><p class="border-b-2" data-svelte-h="svelte-7ag1nn">Kohlenhydrate</p> <p class="border-b-2" data-svelte-h="svelte-3vg2bn">Fette</p> <p class="border-b-2" data-svelte-h="svelte-1ahkwp9">Eiweiß</p></div> <div class="flex flex-col basis-2/3 text-white gap-4 justify-between text-right"><p>${escape(currentCarbs)}g</p> <p>${escape(currentFats)}g</p> <p>${escape(currentProteins)}g</p></div></div></div>` : ``}`;
+});
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let age;
-  let height;
-  let weight;
-  let activityMinutes;
-  let translateY1 = 100;
-  let translateY2 = -100;
-  let translateY3 = 100;
-  let translateY4 = -100;
-  let arrowPosition = 1;
-  return `<section class="flex justify-center items-center min-h-[20vh] flex-col gap-8 p-6"><h1 class="text-4xl text-white font-mont font-bold" data-svelte-h="svelte-1q4navj">Kalorienrechner</h1> <p class="text-white text-center" data-svelte-h="svelte-i92vus">Berechne deinen Verbrauch.</p></section> <section class="overflow-x-hidden"><div class="flex relative justify-center flex-col"><div class="text-8xl text-white text-center font-extrabold flex flex-col overflow-hidden relative justify-center items-center h-[96px]"><div class="text-8xl text-white text-center font-extrabold flex flex-row justify-center"><h1 class="transition-all ease-in-out duration-1000" style="${"transform: translateY(" + escape(translateY1, true) + "%)"}">${escape("_")}</h1> <h1 class="transition-all ease-in-out duration-1000" style="${"transform: translateY(" + escape(translateY2, true) + "%)"}">${escape("_")}</h1> <h1 class="transition-all ease-in-out duration-1000" style="${"transform: translateY(" + escape(translateY3, true) + "%)"}">${escape("_")}</h1> <h1 class="transition-all ease-in-out duration-1000" style="${"transform: translateY(" + escape(translateY4, true) + "%)"}">${escape("_")}</h1></div></div> ${``}</div> <div class="flex flex-row w-full p-4 justify-between gap-2"><div class="flex flex-col gap-4 items-center relative"><input class="transition-all ease-in-out duration-300 focus:border-2 outline-none bg-transparent border-solid border-[1px] border-white rounded-xl p-2 text-xs text-white text-left pl-2" type="number" placeholder="Alter"${add_attribute("value", age, 0)}> <p class="top-2 right-4 absolute text-white text-xs" data-svelte-h="svelte-fdn0mr">Jahre</p> <input class="transition-all ease-in-out duration-300 focus:border-2 outline-none bg-transparent border-solid border-[1px] border-white rounded-xl p-2 text-xs text-white text-left pl-2" type="number" placeholder="Körpergröße"${add_attribute("value", height, 0)}> <p class="bottom-2.5 right-4 absolute text-white text-xs" data-svelte-h="svelte-1vy4rjw">cm</p></div> <div class="flex flex-col gap-4 relative"><select class="outline-none bg-transparent border-solid border-[1px] border-white rounded-xl p-2 text-xs text-white w-full"><option class="text-white" disabled selected value="Sport" data-svelte-h="svelte-wo1wvd">Sport</option><option class="text-black" value="Rennen" data-svelte-h="svelte-1ee9e80">Rennen</option><option class="text-black" value="Fahrrad fahren" data-svelte-h="svelte-bdkgr4">Fahrrad fahren</option><option class="text-black" value="Schwimmen" data-svelte-h="svelte-391pgr">Schwimmen</option><option class="text-black" value="Wandern" data-svelte-h="svelte-1ueaehh">Wandern</option><option class="text-black" value="Stairmaster" data-svelte-h="svelte-19jvefj">Stairmaster</option></select> <input class="focus:border-2 outline-none bg-transparent border-solid border-[1px] rounded-xl p-2 text-xs text-white text-left pl-2" type="number" placeholder="Minuten Pro Woche"${add_attribute("value", activityMinutes, 0)}> <p class="transition-all ease-in-out duration-300 bottom-2 right-4 absolute text-white text-xs">${escape("")}</p></div></div> <div class="flex flex-row w-full pb-4 px-4 items-center justify-center"><input class="transition-all ease-in-out duration-300 focus:border-2 outline-none bg-transparent border-solid border-[1px] rounded-xl p-2 text-xs text-white text-center w-full" type="number" placeholder="Gewicht"${add_attribute("value", weight, 0)}></div> <div class="w-full p-4 flex flex-row"><button class="w-full border-b-4 border-gray-400 active:border-none active:mt-1 bg-white rounded-md p-4 flex flex-row justify-center font-medium text-lg items-center gap-4">Berechnen <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" zoomAndPan="magnify" viewBox="0 0 150 149.999998" height="12" preserveAspectRatio="xMidYMid meet" version="1.0"><path fill="#000000" d="M 51.332031 0 L 126.296875 75.09375 L 51.332031 150.179688 L 23.230469 122.023438 L 70.078125 75.09375 L 23.230469 28.15625 Z M 51.332031 0 " fill-opacity="1" fill-rule="nonzero"></path></svg></button></div> ${``}</section> <section class="p-4 text-center mt-12"><h2 class="text-4xl text-white mb-4 font-mont font-bold" data-svelte-h="svelte-ssj3lq">Trainingsziel</h2> <p class="text-white text-center mb-4" data-svelte-h="svelte-fi1u82">Wähle ein Trainingsziel und wir ermitteln die besten Schritten, um es zu erreichen.</p> <div class="flex flex-row gap-4"><button class="rounded-lg border-white border-[1px] p-4 border-solid flex flex-col hover:bg-gray-800"><h3 class="text-white text-sm" data-svelte-h="svelte-rjvixu">Muskeln aufbauen</h3></button> <button class="rounded-lg border-white border-[1px] p-4 border-solid flex flex-col hover:bg-gray-800"><h3 class="text-white text-sm" data-svelte-h="svelte-10o8ei3">Gewicht halten</h3></button> <button class="rounded-lg border-white border-[1px] p-4 border-solid flex flex-col hover:bg-gray-800"><h3 class="text-white text-sm" data-svelte-h="svelte-1ggnk6d">Fett abnehmen</h3></button> <div class="${"h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-white left-" + escape(arrowPosition, true) + "/4 bottom-[2.6rem] absolute"}"></div></div> <div class="flex flex-col mt-4 w-full relative"><div class="rounded-lg bg-white w-auto justify-start p-4">${`<p class="text-xs text-left" data-svelte-h="svelte-18ktkn">Um Gewicht zuzunehmen, musst du in einem kalorischen Überschuss sein.</p>`}</div></div></section>`;
+  let currentStep;
+  step.subscribe((value) => {
+    currentStep = value;
+  });
+  return `<section class="flex justify-center items-center min-h-[20vh] flex-col gap-8 p-6"><h1 class="text-4xl text-white font-mont font-bold" data-svelte-h="svelte-1q4navj">Kalorienrechner</h1> <p class="text-white text-center" data-svelte-h="svelte-i92vus">Berechne deinen Verbrauch.</p></section> ${currentStep === 1 ? `${validate_component(FirstStep, "FirstStep").$$render($$result, {}, {}, {})}` : `${currentStep === 2 ? `${validate_component(GoalSection, "GoalSection").$$render($$result, {}, {}, {})}` : ``}`}`;
 });
 export {
   Page as default

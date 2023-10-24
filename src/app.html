@@ -22,7 +22,7 @@
 	const app = initializeApp(firebaseConfig);
 	const analytics = getAnalytics(app);
   </script>
-<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont">
+<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont h-screen">
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" class="pt-16">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

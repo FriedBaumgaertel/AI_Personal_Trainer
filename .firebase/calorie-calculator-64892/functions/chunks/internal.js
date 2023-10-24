@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as setContext, v as validate_component, m as missing_component } from "./ssr.js";
+import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./ssr.js";
 let base = "";
 let assets = base;
 const initial = { base, assets };
@@ -130,7 +130,7 @@ const options = {
 	const app = initializeApp(firebaseConfig);
 	const analytics = getAnalytics(app);
   <\/script>
-<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont">
+<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont h-screen">
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,7 +198,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "226kmp"
+  version_hash: "sg3df7"
 };
 function get_hooks() {
   return {};
