@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "chart.js": "^4.4.0",
     "firebase": "^10.5.0",
     "firebase-cli": "^1.2.0",
     "@sveltejs/kit": "^1.20.4",

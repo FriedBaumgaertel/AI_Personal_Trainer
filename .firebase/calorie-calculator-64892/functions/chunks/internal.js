@@ -130,7 +130,7 @@ const options = {
 	const app = initializeApp(firebaseConfig);
 	const analytics = getAnalytics(app);
   <\/script>
-<html lang="en" class="bg-[#030303]">
+<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont">
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,7 +198,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "36hhu"
+  version_hash: "226kmp"
 };
 function get_hooks() {
   return {};
