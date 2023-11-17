@@ -1,38 +1,20 @@
-# create-svelte
+# Grand Nutrition Personal Trainer Fitness App
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a Fitness Application for people looking to create personalized Workout Plans and improve their fitness. This is being done for my business "Grand Nutrition". 
 
-## Creating a project
+## Tech Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- SvelteKit
+- Firebase (Firestore, Auth, Cloud Functions)
+- Tailwind CSS
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- [ ] Weekly Workout Plan according to user preferences
+- [ ] User Preferences: Fitness Goals (Lose Weight, Gain Muscle, Recomposition), Weekly Training Volume, Weight, Height, Gender, Fitness Status
+- [ ] Reschedule, Delete, View, Start and Interact with workout plan
+- [ ] Monitor Fitness Data (Calories Burned, BMI, Fitness Status, Steps etc.
+- [ ] Future: Connection via Fitness Tracker APIs (Garmin, Polar, Whoop or similar)
 
-## Developing
+### No Pull requests will be accepted as this is a personal Project
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
