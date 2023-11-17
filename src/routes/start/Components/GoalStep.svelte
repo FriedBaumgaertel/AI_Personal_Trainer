@@ -1,7 +1,7 @@
 <script>
     import { fly } from "svelte/transition"
-    import {currentStep} from "../../stores.js"
-    import { selectedFitnessGoal } from "../../stores.js"
+    import {currentStep} from "../../stores.ts"
+    import { selectedFitnessGoal } from "../../stores.ts"
 
     function setFitnessGoal(goalNumber) {
         selectedFitnessGoal.set(goalNumber);

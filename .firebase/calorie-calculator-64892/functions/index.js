@@ -2795,7 +2795,7 @@ async function respond(request, options2, manifest, state) {
       if (opts) {
         if ("ssr" in opts) {
           throw new Error(
-            "ssr has been removed, set it in the appropriate +layout.js instead. See the PR for more information: https://github.com/sveltejs/kit/pull/6197"
+            "ssr has been removed, set it in the appropriate +layout.ts instead. See the PR for more information: https://github.com/sveltejs/kit/pull/6197"
           );
         }
         resolve_opts = {

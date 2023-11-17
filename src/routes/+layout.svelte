@@ -1,7 +1,5 @@
 <script>
-    import "../app.css"
-    import { fly } from "svelte/transition"
-    import {cubicInOut} from "svelte/easing";
+    import "../app.css";
 
 </script>
 

@@ -1,7 +1,7 @@
 <script>
     import {fly} from "svelte/transition";
-    import {currentStep} from "../../stores.js";
-    import {userTrainingDays} from "../../stores.js";
+    import {currentStep} from "../../stores.ts";
+    import {userTrainingDays} from "../../stores.ts";
 
     let activeButton;
     function setActive(index) {

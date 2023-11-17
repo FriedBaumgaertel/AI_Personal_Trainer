@@ -1,13 +1,12 @@
-<script>
-    import {currentStep} from "../stores.js";
-    import {userAge, userHeight, userWeight, selectedFitnessGoal, userTrainingDays } from "../stores.js";
-    let step;
+<script lang="ts">
+    import {currentStep, userAge, userHeight, userWeight, selectedFitnessGoal, userTrainingDays } from "../stores";
+    let step: number;
 
-    currentStep.subscribe((value) => {
+    currentStep.subscribe((value: number) => {
         step = value;
     });
 
-    let lineColors = ["black", "gray-300", "gray-300", "gray-300"];
+    let lineColors: Array<string> = ["black", "gray-300", "gray-300", "gray-300"];
 
     function nextStep() {
         currentStep.update((value) => {
@@ -15,29 +14,29 @@
         });
         lineColors[step-1] = "black";
     }
-    let currentAge = 0;
-    let currentHeight = 0;
-    let currentWeight = 0;
-    let currentTrainingDays = 0;
-    let currentFitnessGoal = 0;
+    let currentAge:number = 0;
+    let currentHeight:number = 0;
+    let currentWeight:number = 0;
+    let currentTrainingDays:number = 0;
+    let currentFitnessGoal:number = 0;
 
-    userAge.subscribe((value) => {
+    userAge.subscribe((value:number) => {
             currentAge = value;
         }
     )
-    userHeight.subscribe((value) => {
+    userHeight.subscribe((value:number) => {
             currentHeight = value;
         }
     )
-    userWeight.subscribe((value) => {
+    userWeight.subscribe((value:number) => {
             currentWeight = value;
         }
     )
-    userTrainingDays.subscribe((value) => {
+    userTrainingDays.subscribe((value:number) => {
             currentTrainingDays = value;
         }
     )
-    selectedFitnessGoal.subscribe((value) => {
+    selectedFitnessGoal.subscribe((value:number) => {
             currentFitnessGoal = value;
         }
     )

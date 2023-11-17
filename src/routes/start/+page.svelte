@@ -1,11 +1,10 @@
-<script>
-    import { fly } from "svelte/transition"
+<script lang="ts">
     import GoalStep from "./Components/GoalStep.svelte";
     import DataInputStep from "./Components/DataInputStep.svelte";
     import PersonalisationStep from "./Components/PersonalisationStep.svelte";
     import DonePage from "./Components/DonePage.svelte";
-    import { currentStep } from "../stores.js"
-    let step;
+    import { currentStep } from "../stores"
+    let step: number;
     currentStep.subscribe((value) => {
         step = value;
     })

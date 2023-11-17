@@ -1,6 +1,6 @@
 <script>
 
-import {currentStep} from "../../stores.js";
+import {currentStep} from "../../stores.ts";
 </script>
 
 <section class="w-screen h-screen flex items-center mt-44 flex-col">
