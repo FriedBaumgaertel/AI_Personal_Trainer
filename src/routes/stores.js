@@ -1,10 +1,9 @@
 import { writable } from 'svelte/store';
 
-export const digits = writable([])
-export const step = writable(1);
-export const totalCalories = writable(0);
-export const activeCalories = writable(0);
-export const bmr = writable(0);
-export const carbs = writable(0);
-export const proteins = writable(0);
-export const fats = writable(0);
+export const currentStep = writable(1);
+
+export const selectedFitnessGoal = writable(0);
+export const userAge = writable(0);
+export const userHeight = writable(0);
+export const userWeight = writable(0);
+export const userTrainingDays = writable(0)

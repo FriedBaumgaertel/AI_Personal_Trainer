@@ -27,6 +27,7 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { form } = $$props;
   let { data_0 = null } = $$props;
   let { data_1 = null } = $$props;
+  let { data_2 = null } = $$props;
   {
     setContext("__svelte__", stores);
   }
@@ -45,6 +46,8 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.data_0(data_0);
   if ($$props.data_1 === void 0 && $$bindings.data_1 && data_1 !== void 0)
     $$bindings.data_1(data_1);
+  if ($$props.data_2 === void 0 && $$bindings.data_2 && data_2 !== void 0)
+    $$bindings.data_2(data_2);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -65,7 +68,31 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       },
       {
         default: () => {
-          return `${validate_component(constructors[1] || missing_component, "svelte:component").$$render(
+          return `${constructors[2] ? `${validate_component(constructors[1] || missing_component, "svelte:component").$$render(
+            $$result,
+            { data: data_1, this: components[1] },
+            {
+              this: ($$value) => {
+                components[1] = $$value;
+                $$settled = false;
+              }
+            },
+            {
+              default: () => {
+                return `${validate_component(constructors[2] || missing_component, "svelte:component").$$render(
+                  $$result,
+                  { data: data_2, form, this: components[2] },
+                  {
+                    this: ($$value) => {
+                      components[2] = $$value;
+                      $$settled = false;
+                    }
+                  },
+                  {}
+                )}`;
+              }
+            }
+          )}` : `${validate_component(constructors[1] || missing_component, "svelte:component").$$render(
             $$result,
             { data: data_1, form, this: components[1] },
             {
@@ -75,7 +102,7 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
               }
             },
             {}
-          )}`;
+          )}`}`;
         }
       }
     )}` : `${validate_component(constructors[0] || missing_component, "svelte:component").$$render(
@@ -106,37 +133,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => `<!DOCTYPE html>
-<script type="module">
-	// Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
-	// TODO: Add SDKs for Firebase products that you want to use
-	// https://firebase.google.com/docs/web/setup#available-libraries
-  
-	// Your web app's Firebase configuration
-	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-	const firebaseConfig = {
-	  apiKey: "AIzaSyA00xSz8jSMJ9VfFkYoJKq-6REXrYxNkMY",
-	  authDomain: "calorie-calculator-64892.firebaseapp.com",
-	  projectId: "calorie-calculator-64892",
-	  storageBucket: "calorie-calculator-64892.appspot.com",
-	  messagingSenderId: "223574602826",
-	  appId: "1:223574602826:web:c2f9e549b9a82d5721a2b3",
-	  measurementId: "G-T3C7QMJR29"
-	};
-  
-	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const analytics = getAnalytics(app);
-  <\/script>
-<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont h-screen">
-	<head>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-		<meta charset="utf-8" />
-		<link rel="icon" href="` + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<script type="module">\n  <\/script>\n<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont h-screen">\n	<head>\n		<link rel="preconnect" href="https://fonts.googleapis.com">\n		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		<meta name="description" content="Kreiere einen völlig personalisierten Trainings- und Ernährungsplan mithilfe von Künstlicher Intelligenz." />\n		<title>GrandMaster KI Trainings- und Ernährungsplan</title>\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover" class="pt-16">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -198,7 +195,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "sg3df7"
+  version_hash: "kckc9d"
 };
 function get_hooks() {
   return {};

@@ -1,29 +1,13 @@
-
 <script>
-    import FirstStep from './Components/firstStep.svelte';
-    import GoalSection from './Components/goalSection.svelte';
-    import { fly } from 'svelte/transition';
-    import { quintOut } from 'svelte/easing';
-    import { step } from './stores';
-    import { onMount } from 'svelte';
-    import { readable } from 'svelte/store';
-    let ready;
-    onMount(() => {
-        step.set(1);
-        ready = true;
-    });
-    let currentStep;
-    step.subscribe((value) => {
-		currentStep = value;
-	});
+    import { fly } from "svelte/transition"
 </script>
 
-<section class="flex justify-center items-center min-h-[20vh] flex-col gap-4 p-6 mb-10">
-    <h1 class="text-4xl text-white font-mont font-bold">GrandMaster</h1>
-    <p class="text-center text-sm text-gray-200">Benutze die Kraft von Künstlicher Intelligenz und erstelle einen einzigartigen, personalisierten Trainings- und Ernährungsplan.</p>
-</section>
-{#if currentStep === 1}
-<FirstStep />
-{:else if currentStep === 2}
-<GoalSection />
-{/if}
+<img class="w-screen mb-[-1rem] static" alt="Man Running" src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_man_working_out_on_black_background_modern_style_--ar__f0324db6-67a5-4d13-bea6-f81a53a28cc0_0.png?v=1699522545" />
+<main class="bg-black">
+    <div class="p-4 flex flex-col text-center">
+        <h1 class="text-white text-4xl font-semibold z-20  top-20 left-4 pb-4">Persönlicher Trainingsplan</h1>
+        <p class="text-xs font-thin text-gray-600 top-28 left-4 w-full pb-2 mb-16">Erstelle einen personalisierten Trainings- und Ernährungplan in Minuten</p>
+        <a href="start"><button class="self-end bg-white text-xs text-black p-8 py-2 top-44 left-4 w-48 rounded-md ">JETZT LOSLEGEN ></button>
+        </a>
+    </div>
+</main>
