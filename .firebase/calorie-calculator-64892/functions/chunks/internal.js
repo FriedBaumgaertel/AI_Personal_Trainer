@@ -133,7 +133,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<script type="module">\n  <\/script>\n<html lang="en" class="bg-gradient-to-tr from-[#0C0C0C] to-[#222222] font-mont h-screen">\n	<head>\n		<link rel="preconnect" href="https://fonts.googleapis.com">\n		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		<meta name="description" content="Kreiere einen völlig personalisierten Trainings- und Ernährungsplan mithilfe von Künstlicher Intelligenz." />\n		<title>GrandMaster KI Trainings- und Ernährungsplan</title>\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover" class="pt-16">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<script type="module">\n  <\/script>\n<html lang="en" class="font-mont h-screen">\n	<head>\n		<link rel="preconnect" href="https://fonts.googleapis.com">\n		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		<meta name="description" content="Kreiere einen völlig personalisierten Trainings- und Ernährungsplan mithilfe von Künstlicher Intelligenz." />\n		<title>Trainings- und Ernährungsplan</title>\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover" class="">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -195,7 +195,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "kckc9d"
+  version_hash: "txke71"
 };
 function get_hooks() {
   return {};

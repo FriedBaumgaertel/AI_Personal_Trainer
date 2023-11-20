@@ -1,5 +1,6 @@
 <script>
     import { fly } from "svelte/transition"
+    import {onMount} from "svelte";
 </script>
 
 <img class="w-screen mb-[-1rem] static" alt="Man Running" src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_man_working_out_on_black_background_modern_style_--ar__f0324db6-67a5-4d13-bea6-f81a53a28cc0_0.png?v=1699522545" />

@@ -27,4 +27,4 @@
     </div>
 </nav>
 {/if}
-<slot name="home"></slot>
+<slot></slot>
