@@ -10,4 +10,3 @@ functions
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 /.firebase/
-/.firebase/calorie-calculator-64892/
