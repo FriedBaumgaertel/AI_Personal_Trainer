@@ -77,7 +77,7 @@
                 height: currentHeight,
                 weight: currentWeight,
                 trainingDays: currentTrainingDays,
-                fitnessGoal: currentFitnessGoal
+                fitnessGoal: currentFitnessGoal,
             })
         })
             .then(response => response.text())  // Convert the response to text and return another promise

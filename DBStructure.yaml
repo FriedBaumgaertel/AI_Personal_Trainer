@@ -5,11 +5,16 @@ users (collection)
         │   age: 30
         │   weight: 70
         │   height: 175
+        │   trainingDays : 3
+        │   fitnessGoal: 1
+        │    dailyRestingCalories: 2000
+        │    bmi: 22.86
         │
         └─── workouts (sub-collection)
               │
               └─── workoutID (document)
-                    │   date: Timestamp
+                    │   creationDate: Timestamp
+                    │   scheduledDate: Timestamp
                     │   completed: false
                     │
                     └─── exercises (array)
