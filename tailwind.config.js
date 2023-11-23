@@ -4,10 +4,13 @@ export default {
   
   theme: {
     fontFamily: {
-      "mont": ["Montserrat"],
     },
   extend: {
-      },
+      fontFamily: {
+        "standard": ["-apple-system", "BlinkMacSystemFont, Montserrat"],
+        apple: ["-apple-system", "BlinkMacSystemFont"],
+        },
+      }
   },
   plugins: [require("daisyui")],
 }

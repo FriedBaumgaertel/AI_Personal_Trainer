@@ -4,8 +4,8 @@
     export let totalTime: number;
 </script>
 
-<img src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_attractive_man_working_out_action_shot_in_natureultra__4081e5c2-6e49-409e-a4c3-a1199358459b_1.png?v=1700054399" class="w-full absolute top-0 left-0 z-0" alt="man doing pushups">
-<section class="bg-black h-[1000px] rounded-3xl z-30 relative mt-56 flex flex-col p-8 gap-12">
+<img src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_attractive_man_working_out_action_shot_in_natureultra__4081e5c2-6e49-409e-a4c3-a1199358459b_1.png?v=1700054399" class="w-full fixed top-0 left-0 z-0" alt="man doing pushups">
+<section class="bg-black h-[1000px] rounded-3xl z-30 relative mt-72 flex flex-col p-8 gap-12">
     <div class="flex flex-row justify-between">
         <div class="bg-black w-36 h-28 rounded-2xl p-4 text-white border-solid border-white border-[0.5px]">
             <div class="flex flex-row justify-between">
