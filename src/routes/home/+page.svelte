@@ -1,9 +1,10 @@
 <script lang="ts">
-    import WorkoutProgressChart from "./Components/WorkoutProgressChart.svelte";
     import WorkoutView from "./Components/WorkoutView.svelte";
+    import WorkoutDiv from "../Components/WorkoutDiv.svelte";
     import {onMount} from "svelte";
     import {cubicInOut, quintOut} from "svelte/easing";
     import { fly } from "svelte/transition";
+    import {workoutViewOpenedStore} from "./stores";
 
     // Animation handling
     let headersVisible = false;
@@ -36,15 +37,12 @@
     let month = date.getMonth() + 1
     let currentDateText: string = `${weekday()}, ${day}.${month}`
     // WorkoutView handling
-    let workoutViewOpened:boolean = false;
 
     // Workout Data
     let workoutProgress:number = 0;
     let workoutTime:number = 0;
     let workoutCalories:number = 0;
     let exerciseArray:Array<object> = [];
-    $: workoutIntensity = workoutTime > 60 ? "Hoch" : "Niedrig";
-    $: intensityColor = workoutIntensity === "Hoch" ? "text-red-600" : "text-green-600";
 
     //User Data
     let userDailyRestingCalories = 0;
@@ -52,6 +50,10 @@
     $: currentCaloriesBurned = Math.round( (date.getHours() / 24 ) * userDailyRestingCalories);
     $: calorieProgress = currentCaloriesBurned / userDailyGoalCalories * 100;
 
+    let workoutViewOpened:boolean = false;
+    workoutViewOpenedStore.subscribe((value) => {
+        workoutViewOpened = value;
+    });
 
     onMount(() => {
         const userID = sessionStorage.getItem("sessionID");
@@ -120,40 +122,20 @@
     </div>
         {/if}
     <div>
-            {#if workoutVisible}
-        <div in:fly={{duration:800, y:50, easing:cubicInOut}} tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}}  role="button" on:click={()=>workoutViewOpened=true} class="w-full h-48 bg-black rounded-3xl active:scale-95 transition-all ease-in-out duration-300 p-4 pt-2 justify-center items-center shadow-lg shadow-gray-200">
-            <div class="flex flex-row justify-between items-center">
-                <div class="flex flex-col">
-                    <h2 class="text-white text-3xl basis-2/3">Heute</h2>
-                    <h3 class="text-gray-500 basis-1/3">Krafttraining</h3>
-                </div>
-                <WorkoutProgressChart progress={workoutProgress} />
+        {#if workoutVisible}
+            <div in:fly={{duration:800, y:50, easing:cubicInOut}}>
+                <WorkoutDiv workoutProgress={workoutProgress} workoutCalories={workoutCalories} workoutTime={workoutTime}/>
             </div>
-            <div class="flex flex-row w-full justify-between place-self-center">
-                <div class="flex flex-col">
-                    <h4 class="text-white text-sm">{workoutCalories}kCal</h4>
-                    <p class="text-xs text-gray-400 font-thin">Verbrannt</p>
-                </div>
-                <div class="flex flex-col">
-                    <h4 class="text-white text-sm">{workoutTime} min.</h4>
-                    <p class="text-xs text-gray-400 font-thin">Dauer</p>
-                </div>
-                <div class="flex flex-col">
-                    <h4 class="{intensityColor} text-sm">Hoch</h4>
-                    <p class="text-xs text-gray-400 font-thin">Intensität</p>
-                </div>
-            </div>
-        </div>
-            {/if}
+        {/if}
     </div>
         {#if calorieSectionVisible}
     <section in:fly={{duration:800, y:50, easing:cubicInOut}} class="flex flex-col my-8 px-2 gap-4">
         <h2 class="text-2xl font-medium">Kalorien</h2>
-        <h3 class="text-4xl font-bold">{currentCaloriesBurned}<span class="text-sm text-gray-300">/{userDailyGoalCalories}</span></h3>
+        <h3 class="text-4xl font-bold">{currentCaloriesBurned}<span class="text-sm text-gray-300">/{userDailyGoalCalories} kCal</span></h3>
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="10">
-                <rect x="0" y="0" width="100%" height="10" rx="6" ry="6" fill="#cccccc"/>
-                <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="10" rx="6" ry="6" fill="#00ff00"/>
+                <rect x="0" y="0" width="100%" height="6" rx="6" ry="6" fill="#cccccc"/>
+                <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="6" rx="6" ry="6" fill="#00CA39"/>
             </svg>
         </div>
         <h4 class="text-xl text-gray-500">Heute</h4>
@@ -175,8 +157,8 @@
 
 {#if workoutViewOpened}
     <div transition:fly={{ duration: 1200, y: 600, easing: quintOut }} class="absolute top-0 left-0 right-0 bottom-0 z-20">
-        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="absolute top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpened=false} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="absolute top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpenedStore.set(false)} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>s
         </svg>
             <WorkoutView totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />
     </div>

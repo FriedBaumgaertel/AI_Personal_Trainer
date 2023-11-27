@@ -7,7 +7,7 @@ export default {
     },
   extend: {
       fontFamily: {
-        "standard": ["-apple-system", "BlinkMacSystemFont, Montserrat"],
+        "standard": ["Inter var", "-apple-system", "BlinkMacSystemFont, Montserrat"],
         apple: ["-apple-system", "BlinkMacSystemFont"],
         },
       }
