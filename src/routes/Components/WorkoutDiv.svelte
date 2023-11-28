@@ -14,26 +14,26 @@ workoutViewOpenedStore.subscribe((value) => {
 
 </script>
 
-<div tabindex="0" on:keydown={()=>{}} on:keyup={()=>{}} role="button" on:click={()=>workoutViewOpenedStore.set(true)} class="w-full h-48 bg-black rounded-3xl active:scale-95 transition-all ease-in-out duration-300 p-4 pt-2 justify-center items-center shadow-lg shadow-gray-200">
+<div tabindex="0" on:keydown={()=>{}} on:keyup={()=>{}} role="button" on:click={()=>workoutViewOpenedStore.set(true)} class="w-full h-44 bg-black rounded-2xl active:scale-95 transition-all ease-in-out duration-300 p-4 py-0 justify-center items-center shadow-lg shadow-gray-200">
     <div class="flex flex-row justify-between items-center">
-        <div class="flex flex-col">
-            <h2 class="text-white text-3xl basis-2/3">Heute</h2>
-            <h3 class="text-gray-500 basis-1/3">Krafttraining</h3>
+        <div class="flex flex-col justify-evenly">
+            <h3 class="text-white basis-1/3 font-light">Heute</h3>
+            <h2 class="text-white text-2xl font-bold basis-2/3">Krafttraining</h2>
         </div>
         <WorkoutProgressChart progress={workoutProgress} />
     </div>
     <div class="flex flex-row w-full justify-between place-self-center">
         <div class="flex flex-col">
-            <h4 class="text-white text-sm">{workoutCalories}kCal</h4>
-            <p class="text-xs text-gray-400 font-thin">Verbrannt</p>
+            <h4 class="text-white text-xs">{workoutCalories}kCal</h4>
+            <p class="text-xs text-white font-thin">Verbrannt</p>
         </div>
         <div class="flex flex-col">
-            <h4 class="text-white text-sm">{workoutTime} min.</h4>
-            <p class="text-xs text-gray-400 font-thin">Dauer</p>
+            <h4 class="text-white text-xs">{workoutTime} min.</h4>
+            <p class="text-xs text-white font-thin">Dauer</p>
         </div>
         <div class="flex flex-col">
-            <h4 class="{intensityColor} text-sm">Hoch</h4>
-            <p class="text-xs text-gray-400 font-thin">Intensität</p>
+            <h4 class="{intensityColor} text-xs">Hoch</h4>
+            <p class="text-xs text-white font-thin">Intensität</p>
         </div>
     </div>
 </div>

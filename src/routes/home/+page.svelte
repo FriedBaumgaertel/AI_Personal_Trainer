@@ -1,15 +1,17 @@
 <script lang="ts">
-    import WorkoutView from "./Components/WorkoutView.svelte";
+    import WorkoutView from "../Components/WorkoutView.svelte";
     import WorkoutDiv from "../Components/WorkoutDiv.svelte";
     import {onMount} from "svelte";
     import {cubicInOut, quintOut} from "svelte/easing";
     import { fly } from "svelte/transition";
     import {workoutViewOpenedStore} from "./stores";
+    import WeeklyWorkoutsDone from "./Components/WeeklyWorkoutsDone.svelte";
 
     // Animation handling
     let headersVisible = false;
     let workoutVisible = false;
     let calorieSectionVisible = false;
+    let workoutsDoneVisible = false;
 
     let date = new Date();
     let weekday = () => {
@@ -106,19 +108,21 @@
                 workoutVisible = true;
                 setTimeout(() => {
                     calorieSectionVisible = true;
-                }, 0); // Delay for var3
-            }, 300); // Delay for var2
+                    setTimeout(() => {
+                        workoutsDoneVisible = true;
+                    }, 300);
+                }, 300);
+            }, 300);
         }, 300);
     })
 </script>
 
 <main class="p-8 z-10">
-
         {#if headersVisible}
     <div in:fly={{duration:800, y:50, easing:cubicInOut}} class="flex flex-col mb-8">
-        <p class="text-md text-gray-400 pl-[2px]">{currentDateText}</p>
+        <p class="text-xs text-black font-light pl-[2px]">{currentDateText}</p>
         <h1 class="text-4xl font-bold mb-4">Guten Tag, Neuer Nutzer</h1>
-        <p class="text-sm text-black font-thin">Sieht so aus, als stünde heute eine neue Einheit an. Gib alles!</p>
+        <p class="text-xs text-black font-light">Sieht so aus, als stünde heute eine neue Einheit an. Gib alles!</p>
     </div>
         {/if}
     <div>
@@ -128,36 +132,30 @@
             </div>
         {/if}
     </div>
-        {#if calorieSectionVisible}
-    <section in:fly={{duration:800, y:50, easing:cubicInOut}} class="flex flex-col my-8 px-2 gap-4">
-        <h2 class="text-2xl font-medium">Kalorien</h2>
-        <h3 class="text-4xl font-bold">{currentCaloriesBurned}<span class="text-sm text-gray-300">/{userDailyGoalCalories} kCal</span></h3>
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="10">
-                <rect x="0" y="0" width="100%" height="6" rx="6" ry="6" fill="#cccccc"/>
-                <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="6" rx="6" ry="6" fill="#00CA39"/>
-            </svg>
-        </div>
-        <h4 class="text-xl text-gray-500">Heute</h4>
-        <div class="w-full h-36 px-0 flex flex-row justify-between items-center">
-            {#each ["Mo.", "Di.", "Mi.", "Do.", "Fr.", "Sa.", "So."] as day}
-                <div class="w-1/7 h-full flex flex-col justify-between items-center"> <!-- Wrapper for the SVG and text -->
-                    <svg style="height: 100%; width: auto; display: block;" viewBox="0 0 10 100" preserveAspectRatio="xMidYMid meet">
-                        <!-- Gray background for the progress bar -->
-                        <rect x="1" y="10" width="3" height="90" fill={day===abbreviatedDay?"#666666":"#cccccc"} rx="3" ry="3"/>
-                    </svg>
-                    <span class="text-xs mt-1">{day}</span> <!-- Text below the SVG -->
-                </div>
-            {/each}
-        </div>
-    </section>
-        {/if}
-
+    {#if calorieSectionVisible}
+        <section in:fly={{duration:800, y:50, easing:cubicInOut}} class="flex flex-col my-8 px-2 gap-4">
+            <h2 class="text-2xl font-bold">Kalorien</h2>
+            <h3 class="text-4xl font-bold">{currentCaloriesBurned}<span class="text-sm text-black font-light">/{userDailyGoalCalories} kCal</span></h3>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="10">
+                    <rect x="0" y="0" width="100%" height="6" rx="6" ry="6" fill="#EEEEEE"/>
+                    <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="6" rx="6" ry="6" fill="#00CA39"/>
+                </svg>
+            </div>
+        </section>
+    {/if}
+    {#if workoutsDoneVisible}
+    <div in:fly={{duration:800, y:50, easing:cubicInOut}}>
+        <WeeklyWorkoutsDone />
+    </div>
+    {/if}
 </main>
+<section class="h-screen bg-white">
 
+</section>
 {#if workoutViewOpened}
     <div transition:fly={{ duration: 1200, y: 600, easing: quintOut }} class="absolute top-0 left-0 right-0 bottom-0 z-20">
-        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="absolute top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpenedStore.set(false)} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="fixed top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpenedStore.set(false)} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>s
         </svg>
             <WorkoutView totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />

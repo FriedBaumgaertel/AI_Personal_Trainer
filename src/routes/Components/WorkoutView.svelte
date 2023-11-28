@@ -1,13 +1,17 @@
 <script lang="ts">
+    import SingleExerciseView from "./SingleExerciseView.svelte";
+
     export let exerciseArray: Array<Object>;
     export let totalCalories: number;
     export let totalTime: number;
-</script>
 
+    let singleExerciseViewOpened = false;
+</script>
+{#if !singleExerciseViewOpened}
 <img src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_attractive_man_working_out_action_shot_in_natureultra__4081e5c2-6e49-409e-a4c3-a1199358459b_1.png?v=1700054399" class="w-full fixed top-0 left-0 z-0" alt="man doing pushups">
 <section class="bg-white h-[800px] rounded-3xl z-30 relative mt-72 flex flex-col p-8 gap-12">
     <div class="flex flex-row justify-between">
-        <div class="flex flex-col justify-between bg-white w-40 h-28 rounded-2xl p-6 text-black shadow-lg shadow-neutral-300">
+        <div class="flex flex-col justify-between bg-white w-40 h-28 rounded-2xl p-6 text-black shadow-sm shadow-neutral-300">
             <div class="flex flex-row justify-between">
             <h3 class="font-bold">Kalorien</h3>
                 <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +24,7 @@
                 <h4 class="font-light text-2xl">kCal</h4>
             </div>
         </div>
-        <div class="flex flex-col justify-between bg-white w-40 h-28 rounded-2xl p-6 text-black shadow-lg shadow-neutral-300">
+        <div class="flex flex-col justify-between bg-white w-40 h-28 rounded-2xl p-6 text-black shadow-sm shadow-neutral-300">
             <div class="flex flex-row justify-between">
                 <h3 class="font-bold">Zeit</h3>
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,11 +40,11 @@
 <div class="flex flex-col gap-4 justify-center items-center">
     {#each exerciseArray as exercise}
         {#if exerciseArray.indexOf(exercise) < 3}
-        <div class="flex flex-row border-neutral-300 border-solid border-[0.1px] {exerciseArray.indexOf(exercise) === 0 ? 'shadow-xl' : 'shadow-sm'} shadow-neutral-200 {exerciseArray.indexOf(exercise) === 0 ? 'w-full' : 'w-[85%]'} {exerciseArray.indexOf(exercise) === 0 ? 'opcaity-100' : 'opacity-75'} bg-white rounded-3xl p-4 text-black">
+        <div class="flex flex-row border-neutral-300 border-solid border-[0.1px] {exerciseArray.indexOf(exercise) === 0 ? 'shadow-md' : 'shadow-sm'} shadow-neutral-200 {exerciseArray.indexOf(exercise) === 0 ? 'w-full' : 'w-[85%]'} {exerciseArray.indexOf(exercise) === 0 ? 'opcaity-100' : 'opacity-75'} bg-white rounded-3xl p-4 text-black">
             <div class="h-full aspect-square rounded-3xl bg-white"></div>
             <div class="flex flex-col justify-evenly gap-8 px-4">
                 <h3 class="font-bold {exerciseArray.indexOf(exercise) === 0 ? 'text-2xl' : 'text-xl'}">{exercise.name}</h3>
-                <h4 class="text-gray-500">1 Übung • 7 Sets</h4>
+                <h4 class="text-gray-500">{exercise.reps} Reps • {exercise.sets} Sets</h4>
             </div>
         </div>
         {/if}
@@ -52,9 +56,9 @@
     <svg width="32" height="27" viewBox="0 0 32 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0V26.8826H10.6667V0H0ZM21.3333 0V26.8826H32V0H21.3333Z" fill="black"/>
     </svg>
-
 </button>
-<button class="active:scale-95 transition-all duration-100 flex flex-row items-center text-2xl font-bold p-6 justify-between fixed bottom-4 right-4 w-[50%] rounded-2xl bg-black text-white z-50">
+
+<button on:click={()=>singleExerciseViewOpened=true} class="active:scale-95 transition-all duration-100 flex flex-row items-center text-2xl font-bold p-6 justify-between fixed bottom-4 right-4 w-[50%] rounded-2xl bg-black text-white z-50">
     <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0V26.1871L26.1871 13.0935L0 0Z" fill="white"/>
     </svg>
@@ -62,3 +66,6 @@
 </button>
 <div class="fixed bottom-0 h-36 bg-gradient-to-t from-white to-transparent w-screen z-40">
 </div>
+{:else}
+    <SingleExerciseView />
+{/if}
