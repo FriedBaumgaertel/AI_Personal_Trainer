@@ -1,8 +1,8 @@
 
 
-<section class="flex flex-col w-screen gap-6">
+<section class="flex flex-col w-screen gap-24 lg:px-[25vw]">
     <div class="flex flex-row gap-0 justify-between">
-        <div class="flex bg-black w-[30vw] h-[30vw] justify-center items-center">
+        <div class="flex bg-black w-[30vw] h-[30vw] justify-center items-center lg:">
             <p class="text-6xl aspect-square text-white font-bold">1.</p>
         </div>
         <div class="flex flex-col p-8 px-4 justify-evenly w-[70vw] h-[30vw]">

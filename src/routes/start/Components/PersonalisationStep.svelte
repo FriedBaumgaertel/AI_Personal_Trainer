@@ -23,7 +23,7 @@
                     class:text-black="{activeButton !== number}"
                     class:bg-black="{activeButton === number}"
                     class:text-white="{activeButton === number}"
-                    class="shadow-lg shadow-black p-4 text-lg font-bold rounded-md border-[1px] border-black border-solid"
+                    class="transition-all duration-300 p-4 text-lg font-bold border-[1px] border-black border-solid"
                     on:click={() => setActive(number)}>
                 {number}
             </button>

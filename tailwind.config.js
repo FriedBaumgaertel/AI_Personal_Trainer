@@ -5,6 +5,12 @@ export default {
   theme: {
     fontFamily: {
     },
+    colors: {
+      action: "#006EBE",
+      black:"black",
+      white:"white",
+
+},
   extend: {
       fontFamily: {
         "standard": ["Inter var", "-apple-system", "BlinkMacSystemFont, Montserrat"],

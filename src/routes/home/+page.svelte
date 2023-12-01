@@ -5,7 +5,7 @@
     import {cubicInOut, quintOut} from "svelte/easing";
     import { fly } from "svelte/transition";
     import {workoutViewOpenedStore} from "./stores";
-    import WeeklyWorkoutsDone from "./Components/WeeklyWorkoutsDone.svelte";
+    import ChooseWorkoutSection from "../Components/ChooseWorkoutSection.svelte";
 
     // Animation handling
     let headersVisible = false;
@@ -139,15 +139,13 @@
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="10">
                     <rect x="0" y="0" width="100%" height="6" rx="6" ry="6" fill="#EEEEEE"/>
-                    <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="6" rx="6" ry="6" fill="#00CA39"/>
+                    <rect x="0" y="0" width="{calorieProgress?calorieProgress:0}%" height="6" rx="6" ry="6" fill="#006EBE"/>
                 </svg>
             </div>
         </section>
     {/if}
     {#if workoutsDoneVisible}
-    <div in:fly={{duration:800, y:50, easing:cubicInOut}}>
-        <WeeklyWorkoutsDone />
-    </div>
+        <ChooseWorkoutSection />
     {/if}
 </main>
 <section class="h-screen bg-white">

@@ -14,7 +14,7 @@ workoutViewOpenedStore.subscribe((value) => {
 
 </script>
 
-<div tabindex="0" on:keydown={()=>{}} on:keyup={()=>{}} role="button" on:click={()=>workoutViewOpenedStore.set(true)} class="w-full h-44 bg-black rounded-2xl active:scale-95 transition-all ease-in-out duration-300 p-4 py-0 justify-center items-center shadow-lg shadow-gray-200">
+<div tabindex="0" on:keydown={()=>{}} on:keyup={()=>{}} role="button" on:click={()=>workoutViewOpenedStore.set(true)} class="w-full h-44 bg-black active:scale-95 transition-all ease-in-out duration-300 p-4 py-0 justify-center items-center shadow-lg shadow-gray-200">
     <div class="flex flex-row justify-between items-center">
         <div class="flex flex-col justify-evenly">
             <h3 class="text-white basis-1/3 font-light">Heute</h3>

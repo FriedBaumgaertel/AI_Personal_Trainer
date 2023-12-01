@@ -103,14 +103,14 @@
 
 </div>
 {#if step!==4}
-<button on:click={()=>nextStep()} class="flex flex-row  items-center justify-center gap-8 pl-12 bg-black fixed p-4 rounded-md bottom-6 left-10 text-white text-center w-3/4">
+<button on:click={()=>nextStep()} class="flex flex-row  items-center justify-center gap-8 pl-12 bg-action fixed p-4  bottom-6 left-10 text-white text-center w-3/4">
     Weiter <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.11366 6.53033C6.40656 6.23744 6.40656 5.76256 6.11366 5.46967L1.34069 0.696699C1.0478 0.403806 0.572926 0.403806 0.280032 0.696699C-0.0128608 0.989593 -0.0128608 1.46447 0.280032 1.75736L4.52267 6L0.280032 10.2426C-0.0128608 10.5355 -0.0128608 11.0104 0.280032 11.3033C0.572926 11.5962 1.0478 11.5962 1.34069 11.3033L6.11366 6.53033ZM4 6.75H5.58333V5.25H4V6.75Z" fill="white"/>
 </svg>
 </button>
 {:else}
 <h1 class="text-4xl text-black bottom-24 absolute">{userMessage}</h1>
-<button on:click={()=>createFirstDayPlan()} class="flex flex-row  items-center justify-center gap-8 pl-12 bg-black fixed p-4 rounded-md bottom-6 left-10 text-white text-center w-3/4">
+<button on:click={()=>createFirstDayPlan()} class="flex flex-row  items-center justify-center gap-8 pl-12 bg-action fixed p-4  bottom-6 left-10 text-white text-center w-3/4">
     Plan ansehen <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M6.11366 6.53033C6.40656 6.23744 6.40656 5.76256 6.11366 5.46967L1.34069 0.696699C1.0478 0.403806 0.572926 0.403806 0.280032 0.696699C-0.0128608 0.989593 -0.0128608 1.46447 0.280032 1.75736L4.52267 6L0.280032 10.2426C-0.0128608 10.5355 -0.0128608 11.0104 0.280032 11.3033C0.572926 11.5962 1.0478 11.5962 1.34069 11.3033L6.11366 6.53033ZM4 6.75H5.58333V5.25H4V6.75Z" fill="white"/>
 </svg>
