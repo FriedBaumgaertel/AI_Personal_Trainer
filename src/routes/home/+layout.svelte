@@ -22,11 +22,14 @@
         </nav>
     </aside>
 {/if}
-<nav class="flex flex-row w-screen h-24 p-8">
+<nav class="flex flex-row justify-between w-screen h-24 p-4 pt-8 items-center pl-8">
     <div tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}}  role="button" on:click={()=>visible=true} class="flex flex-col gap-2">
         <div class="bg-black h-1 w-12"></div>
         <div class="bg-black h-1 w-12"></div>
         <div class="bg-black h-1 w-12"></div>
+    </div>
+    <div class="flex h-12">
+        <button  class="bg-action text-white p-2">Kalender verbinden</button>
     </div>
 </nav>
 <slot></slot>

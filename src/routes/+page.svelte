@@ -4,6 +4,7 @@
     import HomepageFadingSection from "./Components/HomepageFadingSection.svelte";
     import HomepageStepsSection from "./Components/HomepageStepsSection.svelte";
 
+
     let innerHeight;
     let y;
     $: explainingSectionVisible = y > innerHeight + 100

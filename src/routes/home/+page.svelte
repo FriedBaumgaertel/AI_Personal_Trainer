@@ -3,9 +3,11 @@
     import WorkoutDiv from "../Components/WorkoutDiv.svelte";
     import {onMount} from "svelte";
     import {cubicInOut, quintOut} from "svelte/easing";
-    import { fly } from "svelte/transition";
+    import {fly} from "svelte/transition";
     import {workoutViewOpenedStore} from "./stores";
     import ChooseWorkoutSection from "../Components/ChooseWorkoutSection.svelte";
+
+
 
     // Animation handling
     let headersVisible = false;
@@ -38,7 +40,6 @@
     let abbreviatedDay = date.toLocaleDateString("de-DE", {weekday: "short"}) + "."
     let month = date.getMonth() + 1
     let currentDateText: string = `${weekday()}, ${day}.${month}`
-    // WorkoutView handling
 
     // Workout Data
     let workoutProgress:number = 0;
@@ -57,10 +58,39 @@
         workoutViewOpened = value;
     });
 
+    async function fetchTodaysWorkout(userID:number) {
+        const today = new Date();
+
+        fetch("https://gettodaysworkout-afizyqllwa-uc.a.run.app", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "userId": userID,
+                "currentDate": today
+            })
+        })
+            .then((res) => res.json())
+            .then(data => {
+                for (let i=0; i < data.exercises.length; i++){
+                    workoutTime+=data.exercises[i].time;
+                    workoutCalories+=data.exercises[i].calories;
+                    exerciseArray.push(data.exercises[i]);
+                    if (data.exercises[i].completed === true){
+                        workoutProgress++;
+                    }
+                }
+                workoutProgress = workoutProgress / data.exercises.length * 100;
+            })
+
+    }
+
     onMount(() => {
-        const userID = sessionStorage.getItem("sessionID");
+        const userID = sessionStorage.getItem("userID");
+        fetchTodaysWorkout(userID);
         fetch("https://getuserdata-afizyqllwa-uc.a.run.app", {
-            method:"POST",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -70,14 +100,15 @@
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data)
                 userDailyRestingCalories = Math.round(data.userData.dailyRestingCalories);
                 userDailyGoalCalories = Math.round(data.userData.goalCalories);
                 const stringTrainingGoal = () => {
-                    if (data.userData.fitnessGoal === 1){
+                    if (data.userData.fitnessGoal === 1) {
                         return "Abnehmen"
-                    } else if (data.userData.fitnessGoal === 2){
+                    } else if (data.userData.fitnessGoal === 2) {
                         return "Muskeln aufbauen"
-                    } else if (data.userData.fitnessGoal === 3){
+                    } else if (data.userData.fitnessGoal === 3) {
                         return "Rekomposition"
                     } else {
                         return "Error"
@@ -89,15 +120,6 @@
                 sessionStorage.setItem("fitnessGoal", stringTrainingGoal());
                 sessionStorage.setItem("trainingDays", data.userData.trainingDays);
 
-                for (let i=0; i < data.workoutData.exercises.length; i++){
-                    workoutTime+=data.workoutData.exercises[i].time;
-                    workoutCalories+=data.workoutData.exercises[i].calories;
-                    exerciseArray.push(data.workoutData.exercises[i]);
-                    if (data.workoutData.exercises[i].completed === true){
-                        workoutProgress++;
-                    }
-                }
-                workoutProgress = workoutProgress / data.workoutData.exercises.length * 100;
             })
             .catch((err) => {
                 console.log(err)

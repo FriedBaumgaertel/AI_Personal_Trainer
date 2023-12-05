@@ -67,7 +67,7 @@
     let userMessage: string = "";
     function createFirstDayPlan() {
         userMessage = "LADEN..."
-        fetch('https://createfirstday-afizyqllwa-uc.a.run.app', {
+        fetch('https://createweeklyplan-afizyqllwa-uc.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,8 +80,11 @@
                 fitnessGoal: currentFitnessGoal,
             })
         })
-            .then(response => response.text())  // Convert the response to text and return another promise
-            .then(data => sessionStorage.setItem("sessionID", data))    // Log the text data from the resolved promise
+            .then(response => response.text())
+            .then(data => {
+                sessionStorage.setItem("userID", data);
+                console.log(data);
+            })
             .then(() => {
                 userMessage = "ERFOLGREICH"
                 window.location.href = `home`;
