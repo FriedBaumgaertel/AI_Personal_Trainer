@@ -4,10 +4,7 @@
     import {onMount} from "svelte";
     import {cubicInOut, quintOut} from "svelte/easing";
     import {fly} from "svelte/transition";
-    import {workoutViewOpenedStore} from "./stores";
     import ChooseWorkoutSection from "../Components/ChooseWorkoutSection.svelte";
-
-
 
     // Animation handling
     let headersVisible = false;
@@ -42,6 +39,7 @@
     let currentDateText: string = `${weekday()}, ${day}.${month}`
 
     // Workout Data
+    let workoutType:string = "";
     let workoutProgress:number = 0;
     let workoutTime:number = 0;
     let workoutCalories:number = 0;
@@ -53,12 +51,9 @@
     $: currentCaloriesBurned = Math.round( (date.getHours() / 24 ) * userDailyRestingCalories);
     $: calorieProgress = currentCaloriesBurned / userDailyGoalCalories * 100;
 
-    let workoutViewOpened:boolean = false;
-    workoutViewOpenedStore.subscribe((value) => {
-        workoutViewOpened = value;
-    });
+    let workoutViewOpened = false;
 
-    async function fetchTodaysWorkout(userID:number) {
+    async function fetchTodaysWorkout(userID:string|null) {
         const today = new Date();
 
         fetch("https://gettodaysworkout-afizyqllwa-uc.a.run.app", {
@@ -82,8 +77,8 @@
                     }
                 }
                 workoutProgress = workoutProgress / data.exercises.length * 100;
+                workoutType = data.exercises[0].workoutType;
             })
-
     }
 
     onMount(() => {
@@ -100,7 +95,6 @@
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 userDailyRestingCalories = Math.round(data.userData.dailyRestingCalories);
                 userDailyGoalCalories = Math.round(data.userData.goalCalories);
                 const stringTrainingGoal = () => {
@@ -150,7 +144,7 @@
     <div>
         {#if workoutVisible}
             <div in:fly={{duration:800, y:50, easing:cubicInOut}}>
-                <WorkoutDiv workoutProgress={workoutProgress} workoutCalories={workoutCalories} workoutTime={workoutTime}/>
+                <WorkoutDiv workoutType={workoutType} bind:workoutViewOpened workoutProgress={workoutProgress} workoutCalories={workoutCalories} workoutTime={workoutTime}/>
             </div>
         {/if}
     </div>
@@ -175,7 +169,7 @@
 </section>
 {#if workoutViewOpened}
     <div transition:fly={{ duration: 1200, y: 600, easing: quintOut }} class="absolute top-0 left-0 right-0 bottom-0 z-20">
-        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="fixed top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpenedStore.set(false)} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="fixed top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpened=false} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>s
         </svg>
             <WorkoutView totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />

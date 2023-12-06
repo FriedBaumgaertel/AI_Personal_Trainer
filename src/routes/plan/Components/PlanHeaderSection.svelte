@@ -1,5 +1,4 @@
 <script>
-
 </script>
 
 <div class="flex flex-col w-full">

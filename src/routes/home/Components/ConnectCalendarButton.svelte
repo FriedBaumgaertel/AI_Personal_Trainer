@@ -3,10 +3,12 @@
     import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
     import {auth} from "$lib";
 
+    let userID;
+    let modalVisible = false;
     let userSignedIn = false;
 
-    const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
-    const API_KEY = import.meta.env.GOOGLE_API_KEY;
+    const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
     // Discovery doc URL for APIs used by the quickstart
     const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
 
@@ -23,7 +25,8 @@
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-            }).catch((error) => {
+            })
+            .catch((error) => {
             console.log(error);
         });
     }
@@ -81,6 +84,7 @@
             tokenClient.requestAccessToken({prompt: ''});
         }
         userSignedIn = true;
+        modalVisible = true;
     }
 
     /**
@@ -99,42 +103,69 @@
      * the authorized user's calendar. If no events are found an
      * appropriate message is printed.
      */
-    async function createNewCalendarEvent() {
-        const event = {
-            'summary': 'Google I/O 2015',
-            'location': '800 Howard St., San Francisco, CA 94103',
-            'description': 'A chance to hear more about Google\'s developer products.',
-            'start': {
-                'dateTime': '2023-12-04T09:00:00+0000',
-                'timeZone': ''
-            },
-            'end': {
-                'dateTime': '2023-12-04T10:30:00+0000',
-                'timeZone': ''
-            }
-        };
-        const request = gapi.client.calendar.events.insert({
-            'calendarId': 'primary',
-            'resource': event
-        });
+    async function syncCalendars() {
+        try {
+            const response = await fetch("https://getallworkouts-afizyqllwa-uc.a.run.app", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "userId": userID
+                })
+            });
 
-        request.execute(function(event) {
-            console.log('Event created: ' + event.htmlLink);
-        });
+            const data = await response.json();
+            const events = [];
+            for (let i = 0; i < data.length; i++) {
+                let scheduledForSeconds = data[i].scheduledFor._seconds;
+                let eventDate = new Date(scheduledForSeconds * 1000);
+
+                const event = {
+                    'summary': `Workout ${i+1}`,
+                    'location': 'Gym',
+                    'description': '',
+                    'start': {
+                        'dateTime': eventDate.toISOString(),
+                        'timeZone': '' // replace with actual timezone
+                    },
+                    'end': {
+                        // Calculate end time based on start time and duration
+                        'dateTime': new Date(eventDate.getTime() + 90*60000).toISOString(), // adding 90 minutes for example
+                        'timeZone': '' // replace with actual timezone
+                    }
+                };
+                events.push(event);
+            }
+
+            for (const event of events) {
+                const request = gapi.client.calendar.events.insert({
+                    'calendarId': 'primary',
+                    'resource': event
+                });
+
+                const createdEvent = await request.execute();
+                console.log("Event created!");
+            }
+            modalVisible= false;
+        } catch (err) {
+            console.log(err);
+        }
     }
     onMount(() => {
         gapiLoaded();
         gisLoaded();
+        userID = sessionStorage.getItem("userID");
     })
 </script>
 
-<main>
-    <button class="w-full h-16 bg-action" on:click={handleAuthClick}>Sign In</button>
-    {#if userSignedIn}
-        <button class="w-full h-16 bg-action text-white" on:click={createNewCalendarEvent}>Create Calendar event</button>
-    {/if}
-</main>
+<button  class="bg-action text-white p-2" on:click={()=>{handleAuthClick()}}>Kalender verbinden</button>
 
-<style>
-    /* Your CSS styles */
-</style>
+{#if modalVisible}
+    <div  class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-screen p-8" style="z-index: 1000;">
+        <div class="relative flex flex-col top-[25vh] w-full h-[40vh] p-5 border shadow-lg bg-white">
+
+            <button on:click={syncCalendars} class="mt-auto bg-action h-14 text-white w-full font-bold text-lg">Fertig</button>
+        </div>
+    </div>
+{/if}

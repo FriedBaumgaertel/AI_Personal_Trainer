@@ -1,4 +1,6 @@
 <script>
+    import ConnectCalendarButton from "./Components/ConnectCalendarButton.svelte";
+
     let visible = false;
     import { fly } from 'svelte/transition';
 </script>
@@ -29,7 +31,7 @@
         <div class="bg-black h-1 w-12"></div>
     </div>
     <div class="flex h-12">
-        <button  class="bg-action text-white p-2">Kalender verbinden</button>
+        <ConnectCalendarButton />
     </div>
 </nav>
 <slot></slot>

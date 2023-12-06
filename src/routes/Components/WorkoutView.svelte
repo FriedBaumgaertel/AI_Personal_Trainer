@@ -3,6 +3,7 @@
     export let exerciseArray: Array<Object>;
     export let totalCalories: number;
     export let totalTime: number;
+    export let workoutType: string;
 </script>
 <img src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_attractive_man_working_out_action_shot_in_natureultra__4081e5c2-6e49-409e-a4c3-a1199358459b_1.png?v=1700054399" class="w-full fixed top-0 left-0 z-0" alt="man doing pushups">
 <section class="bg-white h-[800px] z-30 relative mt-72 flex flex-col p-8 gap-12">
