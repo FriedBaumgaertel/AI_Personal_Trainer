@@ -39,6 +39,7 @@
     let currentDateText: string = `${weekday()}, ${day}.${month}`
 
     // Workout Data
+    let workoutID:string = "";
     let workoutType:string = "";
     let workoutProgress:number = 0;
     let workoutTime:number = 0;
@@ -68,21 +69,22 @@
         })
             .then((res) => res.json())
             .then(data => {
-                for (let i=0; i < data.exercises.length; i++){
-                    workoutTime+=data.exercises[i].time;
-                    workoutCalories+=data.exercises[i].calories;
-                    exerciseArray.push(data.exercises[i]);
-                    if (data.exercises[i].completed === true){
+                for (let i=0; i < data.workout.exercises.length; i++){
+                    workoutTime+=data.workout.exercises[i].time;
+                    workoutCalories+=data.workout.exercises[i].calories;
+                    exerciseArray.push(data.workout.exercises[i]);
+                    if (data.workout.exercises[i].completed === true){
                         workoutProgress++;
                     }
                 }
-                workoutProgress = workoutProgress / data.exercises.length * 100;
-                workoutType = data.exercises[0].workoutType;
+                workoutID = data.id;
+                workoutProgress = workoutProgress / data.workout.exercises.length * 100;
+                workoutType = data.workout.exercises[0].workoutType;
             })
     }
 
     onMount(() => {
-        const userID = sessionStorage.getItem("userID");
+        const userID = localStorage.getItem("userID");
         fetchTodaysWorkout(userID);
         fetch("https://getuserdata-afizyqllwa-uc.a.run.app", {
             method: "POST",
@@ -172,6 +174,6 @@
         <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="fixed top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpened=false} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>s
         </svg>
-            <WorkoutView totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />
+            <WorkoutView workoutID={workoutID} totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />
     </div>
 {/if}

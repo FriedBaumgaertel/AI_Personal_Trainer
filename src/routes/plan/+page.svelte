@@ -13,6 +13,7 @@ let currentlySelectedDay = today;
 let workoutViewOpened = false;
 let restDay:boolean=false;
 
+let workoutID:string = "";
 let workoutType:string = "";
 let workoutCalories:number = 0;
 let workoutProgress:number = 0;
@@ -33,25 +34,25 @@ function updateWorkoutDiv() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "userId": sessionStorage.getItem("userID"),
+            "userId": localStorage.getItem("userID"),
             "currentDate": currentlySelectedDay
         })
     })
         .then(response => response.json())
         .then(data =>{
-                if (data.exercises) {
+                if (data.workout) {
                     restDay=false;
                     exerciseArray=[];
-                    for (let i=0; i < data.exercises.length; i++){
-                        workoutTime+=(data.exercises[i].time * data.exercises[i].sets);
-                        workoutCalories+=data.exercises[i].calories;
-                        exerciseArray.push(data.exercises[i]);
-                        if (data.exercises[i].completed === true){
+                    for (let i=0; i < data.workout.exercises.length; i++){
+                        workoutTime+=(data.workout.exercises[i].time * data.workout.exercises[i].sets);
+                        workoutCalories+=data.workout.exercises[i].calories;
+                        exerciseArray.push(data.workout.exercises[i]);
+                        if (data.workout.exercises[i].completed === true){
                             workoutProgress++;
                         }
                     }
-                    workoutProgress = workoutProgress / data.exercises.length * 100;
-                    workoutType = data.exercises[0].workoutType;
+                    workoutProgress = workoutProgress / data.workout.exercises.length * 100;
+                    workoutType = data.workout.exercises[0].workoutType;
                 } else {
                     restDay=true;
                 }
@@ -60,7 +61,7 @@ function updateWorkoutDiv() {
 }
 
 onMount(() => {
-    const userID = sessionStorage.getItem("userID");
+    const userID = localStorage.getItem("userID");
 
     fetch("https://gettodaysworkout-afizyqllwa-uc.a.run.app", {
         method: "POST",
@@ -74,19 +75,20 @@ onMount(() => {
     })
         .then(response => response.json())
         .then(data =>{
-            if (data.exercises) {
+            if (data.workout) {
                 restDay=false;
                 exerciseArray=[];
-                for (let i=0; i < data.exercises.length; i++){
-                    workoutTime+=(data.exercises[i].time * data.exercises[i].sets);
-                    workoutCalories+=data.exercises[i].calories;
-                    exerciseArray.push(data.exercises[i]);
-                    if (data.exercises[i].completed === true){
+                for (let i=0; i < data.workout.exercises.length; i++){
+                    workoutTime+=(data.workout.exercises[i].time * data.workout.exercises[i].sets);
+                    workoutCalories+=data.workout.exercises[i].calories;
+                    exerciseArray.push(data.workout.exercises[i]);
+                    if (data.workout.exercises[i].completed === true){
                         workoutProgress++;
                     }
                 }
-                workoutProgress = workoutProgress / data.exercises.length * 100;
-                workoutType = data.exercises[0].workoutType;
+                workoutID = data.id;
+                workoutProgress = workoutProgress / data.workout.exercises.length * 100;
+                workoutType = data.workout.exercises[0].workoutType;
                 mounted=true;
             } else {
                 restDay=true;
@@ -112,6 +114,6 @@ onMount(() => {
         <svg tabindex="0" on:keydown={()=>{}}  on:keyup={()=>{}} class="fixed top-10 right-10 z-30"  role="button" on:click={()=>workoutViewOpened=false} width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>s
         </svg>
-        <WorkoutView workoutType={workoutType} totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />
+        <WorkoutView workoutID={workoutID} workoutType={workoutType} totalCalories={workoutCalories} totalTime={workoutTime} exerciseArray={exerciseArray} />
     </div>
 {/if}

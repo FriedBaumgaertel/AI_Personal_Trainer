@@ -1,9 +1,30 @@
 <script lang="ts">
 
+    import {onMount} from "svelte";
+
     export let exerciseArray: Array<Object>;
     export let totalCalories: number;
     export let totalTime: number;
     export let workoutType: string;
+    export let workoutID: string;
+
+    let highestUnfinishedExercise = 0;
+
+    function calculateHighestUnfinishedExercise() {
+        for (let i = 0; i < exerciseArray.length; i++) {
+            if (exerciseArray[i].completed === false) {
+                highestUnfinishedExercise = i;
+                break;
+            }
+        }
+        setExercise(highestUnfinishedExercise)
+    }
+    function setExercise(index: number) {
+        sessionStorage.setItem('currentExercise', JSON.stringify(exerciseArray[index]));
+    }
+    onMount(() => {
+        setExercise(highestUnfinishedExercise);
+    });
 </script>
 <img src="https://cdn.shopify.com/s/files/1/0753/3828/5388/files/Minato_attractive_man_working_out_action_shot_in_natureultra__4081e5c2-6e49-409e-a4c3-a1199358459b_1.png?v=1700054399" class="w-full fixed top-0 left-0 z-0" alt="man doing pushups">
 <section class="bg-white h-[800px] z-30 relative mt-72 flex flex-col p-8 gap-12">
@@ -37,15 +58,13 @@
 <div class="flex flex-col gap-4 justify-center items-center">
     <p class="text-2xl self-start font-bold">Training</p>
     {#each exerciseArray as exercise}
-        {#if exerciseArray.indexOf(exercise) < 3}
-        <div class="flex flex-row border-neutral-300 border-solid border-[0.1px] shadow-neutral-200 {exerciseArray.indexOf(exercise) === 0 ? 'bg-black text-white w-full shadow-md opacity-100' : 'bg-white text-black- w-[85%] shadow-sm opacity-75'} p-4 text-black">
+        <div on:click={()=>{setExercise(exerciseArray.indexOf(exercise));window.location.href=`Workout`}} class="flex flex-row border-neutral-300 border-solid border-[0.1px] shadow-neutral-200 {exerciseArray.indexOf(exercise) === 0 ? 'bg-black text-white w-full shadow-md opacity-100' : 'bg-white text-black- w-[85%] shadow-sm opacity-75'} p-4 text-black">
             <div class="h-full aspect-square bg-white"></div>
             <div class="flex flex-col justify-evenly gap-8 px-4">
                 <h3 class="font-bold {exerciseArray.indexOf(exercise) === 0 ? 'text-2xl' : 'text-xl'}">{exercise.name}</h3>
                 <h4 class="text-gray-500">{exercise.reps} Reps • {exercise.sets} Sets</h4>
             </div>
         </div>
-        {/if}
     {/each}
 </div>
 </section>
@@ -56,7 +75,7 @@
     </svg>
 </button>
 
-<button on:click={()=>window.location.href="Workout"} class="active:scale-95 transition-all duration-100 flex flex-row items-center text-2xl font-bold p-6 justify-evenly fixed bottom-4 right-4 w-[65%]   bg-action text-white z-50">
+<button on:click={()=>{calculateHighestUnfinishedExercise();window.location.href=`Workout`}} class="active:scale-95 transition-all duration-100 flex flex-row items-center text-2xl font-bold p-6 justify-evenly fixed bottom-4 right-4 w-[65%]   bg-action text-white z-50">
     <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0V26.1871L26.1871 13.0935L0 0Z" fill="white"/>
     </svg>

@@ -6,13 +6,11 @@
     function setFitnessGoal(goalNumber:number) {
         selectedFitnessGoal.set(goalNumber);
         clickedDiv=goalNumber;
-        console.log(clickedDiv);
 
     }
     $: opacityOne = clickedDiv===1? 100: 75;
     $: opacityTwo = clickedDiv===2? 100: 75;
     $: opacityThree = clickedDiv===3? 100: 75;
-    console.log(clickedDiv);
 </script>
 
 <section in:fly={{ duration:1000, y:50 }} class="bg-white flex flex-col h-3/4 p-8 gap-8">

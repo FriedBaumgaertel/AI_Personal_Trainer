@@ -12,7 +12,7 @@ users (collection)
         │
         └─── workouts (sub-collection)
               │
-              └─── workoutID (document)
+              └─── [exerciseIndex] (document)
                     │   creationDate: Timestamp
                     │   scheduledDate: Timestamp
                     │   completed: false

@@ -15,7 +15,7 @@
 {:else if step===2}
 <DataInputStep />
 {:else if step===3}
-    <PersonalisationStep />
-    {:else if step===4}
-    <DonePage />
+<PersonalisationStep />
+{:else if step===4}
+<DonePage />
 {/if}

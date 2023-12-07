@@ -25,7 +25,7 @@
             </defs>
         </svg>
         <h1 class="text-black text-4xl font-bold lg:text-5xl"> Persönlicher Trainings- und Ernährungsplan</h1>
-        <p class="text-black text-xs font-light lg:text-2xl">Erschaffe neue Routinen, die perfekt auf dich abgestimmt sind. Kreiere Workouts, Logge deine Erfolge und erreiche deine Ziele.</p>
+        <p class="text-black text-xs font-light lg:text-lg">Erschaffe neue Routinen, die perfekt auf dich abgestimmt sind. Kreiere Workouts, Logge deine Erfolge und erreiche deine Ziele.</p>
         <div class="flex flex-row items-center justify-evenly w-full">
             <a href="#" class="bg-white px-0 py-0 w-[30%] text-xs h-12 align-middle flex items-center">Mehr erfahren</a>
             <a href="start" class="bg-action text-white px-0 py-4 w-[40%] text-xs h-12 align-middle font-bold">Jetzt Starten</a>

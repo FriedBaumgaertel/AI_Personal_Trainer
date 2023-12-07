@@ -1,5 +1,13 @@
 <script lang="ts">
-    import {currentStep, userAge, userHeight, userWeight, selectedFitnessGoal, userTrainingDays } from "../stores";
+    import {
+        currentStep,
+        userAge,
+        userHeight,
+        userWeight,
+        selectedFitnessGoal,
+        userTrainingDays,
+        userPreferredTrainingTypes, userWorkingHours
+    } from "../stores";
     let step: number;
 
     currentStep.subscribe((value: number) => {
@@ -10,6 +18,8 @@
     let currentWeight:number;
     let currentTrainingDays:number;
     let currentFitnessGoal:number;
+    let currentPreferredTrainingTypes:Array<string | null>;
+    let currentWorkingHours:Object;
 
     userAge.subscribe((value:number) => {
             currentAge = value;
@@ -29,6 +39,14 @@
     )
     selectedFitnessGoal.subscribe((value:number) => {
             currentFitnessGoal = value;
+        }
+    )
+    userPreferredTrainingTypes.subscribe((value:Array<number>) => {
+            currentPreferredTrainingTypes = value;
+        }
+    )
+    userWorkingHours.subscribe((value:Object) => {
+            currentWorkingHours = value;
         }
     )
 
@@ -53,14 +71,17 @@
                 return value + 1;
             });
             lineColors[step - 1] = "black";
-        }
-        else if (step===3 && currentTrainingDays!==0) {
+        } else if (step===3 && currentTrainingDays===0) {
+            alert("Bitte wähle eine Anzahl an Trainingstagen aus!")
+            return;
+        } else if (step===3 && currentTrainingDays!==0 && currentPreferredTrainingTypes.some((type) =>type !== null)) {
+            console.log(currentPreferredTrainingTypes)
             currentStep.update((value) => {
                 return value + 1;
             });
             lineColors[step - 1] = "black";
-        } else if (step===3 && currentTrainingDays===0) {
-            alert("Bitte wähle eine Anzahl an Trainingstagen aus!")
+        } else {
+            alert("Bitte wähle mindestens eine Trainingsart aus!")
             return;
         }
     }
@@ -82,7 +103,7 @@
         })
             .then(response => response.text())
             .then(data => {
-                sessionStorage.setItem("userID", data);
+                localStorage.setItem("userID", data);
                 console.log(data);
             })
             .then(() => {
@@ -94,10 +115,10 @@
 </script>
 
 <header class="w-screen bg-transparent flex flex-row justify-center items-center gap-2 px-16 py-8">
-    {#each lineColors as color}
-        <div class="w-1/3 h-2 rounded-sm bg-{color}"></div>
+    {#each lineColors as color, index}
+        <div on:click={()=>currentStep.set(index+1)} class="w-1/3 h-2 rounded-sm bg-{color}"></div>
     {/each}
-    <svg class="" width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg on:click={()=>window.location.href="/"} class="" width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L8.5 8.5M16 16L8.5 8.5M8.5 8.5L16 1L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
 </header>

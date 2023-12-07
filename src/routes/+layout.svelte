@@ -1,14 +1,39 @@
 <script>
     import "../app.css";
-
+    import {onMount} from "svelte";
+    import {page} from "$app/stores";
+    let userID;
+    let url;
+    onMount(() => {
+        try {
+            userID = localStorage.getItem('userID');
+        }  catch (e) {
+            null;
+        }
+        page.subscribe((value) => {
+            url = value.data.pathname;
+        })
+    });
 </script>
 
 <header class="w-screen static bg-transparent z-50 top-0">
     <div></div>
 </header>
 
+{#if (url === "/" || url === "/start") && (!userID) }
 <slot></slot>
-
+{:else if (url !== "/" || url !== "/start") && (userID)}
+    <slot></slot>
+{:else}
+    <main class="h-screen bg-white w-screen flex flex-col gap-6 items-center justify-center px-12">
+        <h1 class="text-center text-2xl">
+            Es sieht so aus, als hättest du noch keinen Plan erstellt.
+        </h1>
+        <a class="w-full flex items-center justify-center" href="start">
+            <button class="w-3/4 h-12 bg-action text-white font-bold text-lg">Jetzt loslegen</button>
+        </a>
+    </main>
+{/if}
 
 <footer class="bg-black dark:bg-gray-900">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
